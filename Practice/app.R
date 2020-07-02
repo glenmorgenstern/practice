@@ -35,8 +35,12 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-    totalInterest <- reactive(input$principal*(1+(input$rate/100)*input$time))
-    output$interestAcc <- renderText(totalInterest)
+    output$interestAcc <- renderText({
+        
+        totalInterest <- reactive(input$principal*(1+(input$rate/100)*input$time))
+        
+        paste0("The total interest accumulated is $", totalInterest)
+    })
 }
 
 # Run the application 
