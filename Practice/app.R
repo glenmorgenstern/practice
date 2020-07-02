@@ -19,31 +19,24 @@ ui <- fluidPage(
     sidebarLayout(
         sidebarPanel(
             numericInput("principal",
-                        "Principal: $", min = 0, max = 999999, step = 1),
+                        "Principal: $", 0, min = 0, max = 999999, step = 1),
             numericInput("rate",
-                         "Annual Interest Rate in Percent: ", min = 0, max = 100, step = 0.1),
+                         "Annual Interest Rate in Percent: ", 0, min = 0, max = 100, step = 0.1),
             numericInput("time",
-                         "Length of Accumulation in Years: ", min = 0, max = 999999, step = 1)
+                         "Length of Accumulation in Years: ", 0, min = 0, max = 999999, step = 1)
         ),
 
         # Show a plot of the generated distribution
         mainPanel(
-           plotOutput("interestPlot")
+           textOutput("interestAcc")
         )
     )
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    })
+    totalInterest <- reactive(input$principal*(1+(input$rate/100)*input$time))
+    output$interestAcc <- renderText(totalInterest)
 }
 
 # Run the application 
