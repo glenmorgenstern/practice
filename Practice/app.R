@@ -9,13 +9,11 @@
 
 library(shiny)
 
-# Define UI for application that draws a histogram
 ui <- fluidPage(
 
     # Application title
     titlePanel("Simple Interest Calculator"),
 
-    # Sidebar with a slider input for number of bins 
     sidebarLayout(
         sidebarPanel(
             numericInput("principal",
@@ -26,14 +24,12 @@ ui <- fluidPage(
                          "Length of Accumulation in Years: ", 0, min = 0, max = 999999, step = 1)
         ),
 
-        # Show a plot of the generated distribution
         mainPanel(
            textOutput("interestAcc")
         )
     )
 )
 
-# Define server logic required to draw a histogram
 server <- function(input, output) {
     output$interestAcc <- renderText({
         
