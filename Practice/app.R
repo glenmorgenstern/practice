@@ -13,21 +13,22 @@ library(shiny)
 ui <- fluidPage(
 
     # Application title
-    titlePanel("Old Faithful Geyser Data"),
+    titlePanel("Simple Interest Calculator"),
 
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
         sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
+            numericInput("principal",
+                        "Principal: $", min = 0, max = 999999, step = 1),
+            numericInput("rate",
+                         "Annual Interest Rate in Percent: ", min = 0, max = 100, step = 0.1),
+            numericInput("time",
+                         "Length of Accumulation in Years: ", min = 0, max = 999999, step = 1)
         ),
 
         # Show a plot of the generated distribution
         mainPanel(
-           plotOutput("distPlot")
+           plotOutput("interestPlot")
         )
     )
 )
