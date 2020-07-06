@@ -16,6 +16,7 @@ ui <- fluidPage(
 
     sidebarLayout(
         sidebarPanel(
+            helpText("Enter the initial value of the investment in dollars, the interest rate in percent, and number of years interest will accumulate below."),
             numericInput("principal",
                         "Principal: $", 0, min = 0, max = 999999, step = 1),
             numericInput("rate",
@@ -36,7 +37,7 @@ server <- function(input, output) {
             principal <- input$principal     
             length <- input$time
             rate <- input$rate
-            intnum <-principal*(1+(rate/100)*length)
+            intnum <- round(principal*(1+(rate/100)*length), digits = 2)
             return(as.character(intnum)) })
         
         output$interestAcc <- renderText(
