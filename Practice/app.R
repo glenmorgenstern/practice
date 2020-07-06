@@ -31,13 +31,18 @@ ui <- fluidPage(
 )
 
 server <- function(input, output) {
-    output$interestAcc <- renderText({
         
-        totalInterest <- reactive(input$principal*(1+(input$rate/100)*input$time))
+        totalInterest <- reactive({ 
+            principal <- input$principal     
+            length <- input$time
+            rate <- input$rate
+            intnum <-principal*(1+(rate/100)*length)
+            return(as.character(intnum)) })
         
-        paste0("The total interest accumulated is $", totalInterest)
-    })
-}
+        output$interestAcc <- renderText(
+            paste0("Final value is $", totalInterest() ))
+    }
+
 
 # Run the application 
 shinyApp(ui = ui, server = server)
